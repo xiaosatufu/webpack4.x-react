@@ -25,6 +25,7 @@ module.exports = {
         use: [
           "style-loader", // 创建style标签，并将css添加进去
           "css-loader", // 编译css
+          "postcss-loader",
           "sass-loader" // 编译scss
         ]
       }
