@@ -1,5 +1,6 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
   mode: "development",
   devtool: "cheap-module-eval-source-map", // 开发环境配置
@@ -23,7 +24,8 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-          "style-loader", // 创建style标签，并将css添加进去
+          //   "style-loader", // 创建style标签，并将css添加进去
+          MiniCssExtractPlugin.loader,
           "css-loader", // 编译css
           "postcss-loader",
           "sass-loader" // 编译scss
@@ -70,7 +72,11 @@ module.exports = {
       filename: "index.html",
       template: path.join(__dirname, "src/template.html")
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin({
+        filename:"[name].css",
+        chunkFilename:"[id].css"
+    })
   ],
   devServer: {
     hot: true,
