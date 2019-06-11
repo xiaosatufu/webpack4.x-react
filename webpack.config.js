@@ -1,7 +1,9 @@
-const {CleanWebpackPlugin}  = require('clean-webpack-plugin')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
+  devtool: "cheap-module-eval-source-map", // 开发环境配置
+//   devtool: "cheap-module-source-map", // 线上生成配置
   entry: ["./src/index.js"],
   output: {
     path: path.join(__dirname, dist),
@@ -21,11 +23,11 @@ module.exports = {
     ]
   },
   plugins: [
-      CleanWebpackPlugin(),
-      HtmlWebpackPlugin({
-          filename:"index.html",
-          template:path.join(__dirname,"src/template.html")
-      })
+    CleanWebpackPlugin(),
+    HtmlWebpackPlugin({
+      filename: "index.html",
+      template: path.join(__dirname, "src/template.html")
+    })
   ],
   devServer: {}
 };
