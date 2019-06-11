@@ -1,0 +1,20 @@
+{
+  "name": "webpack4.x-react",
+  "version": "1.0.0",
+  "description": "webpack4.x-react",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiaosatufu/webpack4.x-react.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiaosatufu/webpack4.x-react/issues"
+  },
+  "homepage": "https://github.com/xiaosatufu/webpack4.x-react#readme"
+}
