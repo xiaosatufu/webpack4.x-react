@@ -1,8 +1,9 @@
+const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const PurifyCSS = require("purifycss-webpack")
-const glob = require("glob-all")
+const PurifyCSS = require("purifycss-webpack");
+const glob = require("glob-all");
 module.exports = {
   mode: "development",
   devtool: "cheap-module-eval-source-map", // 开发环境配置
@@ -80,28 +81,34 @@ module.exports = {
       chunkFilename: "[id].css"
     }),
     new webpack.ProvidePlugin({
-        $:"jquery",
-        jQuery:"jQuery"
+      $: "jquery",
+      jQuery: "jQuery"
     }),
     new webpack.DefinePlugin({
-        "process.env":{
-            VUEP_BASE_URL:JSON.stringify('http://localhost:9000')
-        }
+      "process.env": {
+        VUEP_BASE_URL: JSON.stringify("http://localhost:9000")
+      }
     }),
     // / 清除无用 css
     new PurifyCSS({
-        paths:glob.sync([
-            // 要做 CSS Tree Shaking 的路径文件
-            path.resolve(__dirname,"./src/*.html"),
-            path.resolve(__dirname,"./src/*.js")
-        ])
+      paths: glob.sync([
+        // 要做 CSS Tree Shaking 的路径文件
+        path.resolve(__dirname, "./src/*.html"),
+        path.resolve(__dirname, "./src/*.js")
+      ])
+    }),
+    new AddAssetHtmlWebpackPlugin({
+      filepath: path.resolve(__dirname, "../dll/jquery.dll.js") // 对应的 dll 文件路径
+    }),
+    new webpack.DllReferencePlugin({
+      manifest: path.resolve(__dirname, "..", "dll/jquery-manifest.json")
     })
   ],
   optimization: {
     splitChunks: {
       chunks: "all"
     },
-    usedExports:true,
+    usedExports: true
   },
   devServer: {
     hot: true,
