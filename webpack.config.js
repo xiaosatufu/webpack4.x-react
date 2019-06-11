@@ -29,5 +29,14 @@ module.exports = {
       template: path.join(__dirname, "src/template.html")
     })
   ],
-  devServer: {}
+  devServer: {
+      hot:true,
+      contentBase:path.join(__dirname,"./dist"),
+      host:"0.0.0.0",
+      port:8080,
+      historyApiFallback:true,
+      proxy:{
+          "/api":"http://localhost:3000"
+      }
+  }
 };
