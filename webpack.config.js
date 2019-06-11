@@ -28,6 +28,16 @@ module.exports = {
           "postcss-loader",
           "sass-loader" // 编译scss
         ]
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg)/,
+        use: {
+          loader: "url-loader",
+          options: {
+            outputPath: "images/", // 图片输出的路径
+            limit: 10 * 1024
+          }
+        }
       }
     ]
   },
