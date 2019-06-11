@@ -20,6 +20,7 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
+              loader: "happypack/loader?id=busongBabel"
             loader: "babel-loader"
           }
         ]
@@ -102,6 +103,11 @@ module.exports = {
     }),
     new webpack.DllReferencePlugin({
       manifest: path.resolve(__dirname, "..", "dll/jquery-manifest.json")
+    }),
+    new HappyPack({
+        id:"busongBabel",
+        loaders:["babel-loader?cacheDirectory"],
+        threadPool:HappyPackThreadPool
     })
   ],
   optimization: {
