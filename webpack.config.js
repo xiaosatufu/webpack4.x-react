@@ -55,6 +55,15 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extension: ["", ".js", ".jsx"],
+    alias: {
+      "@": path.join(__dirname, "src"),
+      pages: path.join(__dirname, "src/pages"),
+      router: path.join(__dirname, "src/router")
+    }
+  },
+
   plugins: [
     CleanWebpackPlugin(),
     HtmlWebpackPlugin({
