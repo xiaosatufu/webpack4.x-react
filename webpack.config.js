@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
   mode: "development",
   devtool: "cheap-module-eval-source-map", // 开发环境配置
-//   devtool: "cheap-module-source-map", // 线上生成配置
+  //   devtool: "cheap-module-source-map", // 线上生成配置
   entry: ["./src/index.js"],
   output: {
     path: path.join(__dirname, dist),
@@ -19,6 +19,14 @@ module.exports = {
             loader: "babel-loader"
           }
         ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          "style-loader", // 创建style标签，并将css添加进去
+          "css-loader", // 编译css
+          "sass-loader" // 编译scss
+        ]
       }
     ]
   },
@@ -31,13 +39,13 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
-      hot:true,
-      contentBase:path.join(__dirname,"./dist"),
-      host:"0.0.0.0",
-      port:8080,
-      historyApiFallback:true,
-      proxy:{
-          "/api":"http://localhost:3000"
-      }
+    hot: true,
+    contentBase: path.join(__dirname, "./dist"),
+    host: "0.0.0.0",
+    port: 8080,
+    historyApiFallback: true,
+    proxy: {
+      "/api": "http://localhost:3000"
+    }
   }
 };
