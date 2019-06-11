@@ -1,16 +1,22 @@
 const path = require("path");
+const webpack = require('webpack')
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const PurifyCSS = require("purifycss-webpack");
 const glob = require("glob-all");
+const HappyPack = require("happypack");
+const os = require("os");
+const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin')
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+// const WorkboxPlugin = require('workbox-webpack-plugin')
 module.exports = {
   mode: "development",
   devtool: "cheap-module-eval-source-map", // 开发环境配置
   //   devtool: "cheap-module-source-map", // 线上生成配置
   entry: ["./src/index.js"],
   output: {
-    path: path.join(__dirname, dist),
+    path: path.join(__dirname, "dist"),
     filename: "bundle.js"
   },
   module: {
@@ -20,13 +26,13 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-              loader: "happypack/loader?id=busongBabel"
-            loader: "babel-loader"
+            loader: "happypack/loader?id=busongBabel"
+            // loader: "babel-loader"
           }
         ]
       },
       {
-        test: /\.scss$/,
+        test: /\.(sc|sa|c)ss$/,
         use: [
           //   "style-loader", // 创建style标签，并将css添加进去
           MiniCssExtractPlugin.loader,
@@ -62,19 +68,19 @@ module.exports = {
     ]
   },
   resolve: {
-    extension: ["", ".js", ".jsx"],
+    extensions: [".js", ".jsx"],
     alias: {
-      "@": path.join(__dirname, "src"),
-      pages: path.join(__dirname, "src/pages"),
-      router: path.join(__dirname, "src/router")
+      "@": path.resolve(__dirname, "src"),
+      pages: path.resolve(__dirname, "src/pages"),
+      router: path.resolve(__dirname, "src/router")
     }
   },
 
   plugins: [
-    CleanWebpackPlugin(),
-    HtmlWebpackPlugin({
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
       filename: "index.html",
-      template: path.join(__dirname, "src/template.html")
+      template: path.resolve(__dirname, "src/template.html")
     }),
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
@@ -98,16 +104,16 @@ module.exports = {
         path.resolve(__dirname, "./src/*.js")
       ])
     }),
-    new AddAssetHtmlWebpackPlugin({
-      filepath: path.resolve(__dirname, "../dll/jquery.dll.js") // 对应的 dll 文件路径
-    }),
-    new webpack.DllReferencePlugin({
-      manifest: path.resolve(__dirname, "..", "dll/jquery-manifest.json")
-    }),
+    // new AddAssetHtmlWebpackPlugin({
+    //   filepath: path.resolve(__dirname, "../dll/jquery.dll.js") // 对应的 dll 文件路径
+    // }),
+    // new webpack.DllReferencePlugin({
+    //   manifest: path.resolve(__dirname, "..", "dll/jquery-manifest.json")
+    // }),
     new HappyPack({
-        id:"busongBabel",
-        loaders:["babel-loader?cacheDirectory"],
-        threadPool:HappyPackThreadPool
+      id: "busongBabel",
+      loaders: ["babel-loader?cacheDirectory"],
+      threadPool: happyThreadPool
     })
   ],
   optimization: {

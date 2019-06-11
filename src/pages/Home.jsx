@@ -3,8 +3,9 @@ import '../assets/home.scss'
 
 
 export default class Home extends Component {
-    constructor(props);
-    super(props)
+    constructor(props) {
+        super(props)
+    }
 
 
     render(){
