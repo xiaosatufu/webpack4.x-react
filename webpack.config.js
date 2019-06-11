@@ -74,10 +74,19 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new MiniCssExtractPlugin({
-        filename:"[name].css",
-        chunkFilename:"[id].css"
+      filename: "[name].css",
+      chunkFilename: "[id].css"
+    }),
+    new webpack.ProvidePlugin({
+        $:"jquery",
+        jQuery:"jQuery"
     })
   ],
+  optimization: {
+    splitChunks: {
+      chunks: "all"
+    }
+  },
   devServer: {
     hot: true,
     contentBase: path.join(__dirname, "./dist"),
