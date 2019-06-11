@@ -80,6 +80,11 @@ module.exports = {
     new webpack.ProvidePlugin({
         $:"jquery",
         jQuery:"jQuery"
+    }),
+    new webpack.DefinePlugin({
+        "process.env":{
+            VUEP_BASE_URL:JSON.stringify('http://localhost:9000')
+        }
     })
   ],
   optimization: {
