@@ -1,6 +1,8 @@
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const PurifyCSS = require("purifycss-webpack")
+const glob = require("glob-all")
 module.exports = {
   mode: "development",
   devtool: "cheap-module-eval-source-map", // 开发环境配置
@@ -85,6 +87,12 @@ module.exports = {
         "process.env":{
             VUEP_BASE_URL:JSON.stringify('http://localhost:9000')
         }
+    }),
+    new PurifyCSS({
+        paths:glob.sync([
+            path.resolve(__dirname,"./src/*.html"),
+            path.resolve(__dirname,"./src/*.js")
+        ])
     })
   ],
   optimization: {
