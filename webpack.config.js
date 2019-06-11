@@ -88,8 +88,10 @@ module.exports = {
             VUEP_BASE_URL:JSON.stringify('http://localhost:9000')
         }
     }),
+    // / 清除无用 css
     new PurifyCSS({
         paths:glob.sync([
+            // 要做 CSS Tree Shaking 的路径文件
             path.resolve(__dirname,"./src/*.html"),
             path.resolve(__dirname,"./src/*.js")
         ])
@@ -98,7 +100,8 @@ module.exports = {
   optimization: {
     splitChunks: {
       chunks: "all"
-    }
+    },
+    usedExports:true,
   },
   devServer: {
     hot: true,
