@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/xiaosatufu/webpack4.x-react/issues"
   },
-  "homepage": "https://github.com/xiaosatufu/webpack4.x-react#readme"
+  "homepage": "https://github.com/xiaosatufu/webpack4.x-react#readme",
+  "devDependencies": {
+    "webpack": "^4.33.0",
+    "webpack-cli": "^3.3.3",
+    "webpack-dev-server": "^3.7.1"
+  }
 }
