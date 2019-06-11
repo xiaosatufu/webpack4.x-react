@@ -27,7 +27,8 @@ module.exports = {
     HtmlWebpackPlugin({
       filename: "index.html",
       template: path.join(__dirname, "src/template.html")
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin()
   ],
   devServer: {
       hot:true,
